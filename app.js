@@ -531,9 +531,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function saveRSVPLocally(rsvpItem) {
-        // Check if item already exists (in case of double submission)
-        const idx = rsvps.findIndex(r => r.id === rsvpItem.id || (r.name.toLowerCase() === rsvpItem.name.toLowerCase() && r.timestamp.slice(0, 10) === rsvpItem.timestamp.slice(0, 10)));
+        // Check if a guest with the identical name already exists (case-insensitive, trimmed)
+        const idx = rsvps.findIndex(r => r.name.toLowerCase().trim() === rsvpItem.name.toLowerCase().trim());
         if (idx > -1) {
+            // Keep the original unique ID but update status, message, and timestamp
+            rsvpItem.id = rsvps[idx].id;
             rsvps[idx] = rsvpItem;
         } else {
             rsvps.push(rsvpItem);

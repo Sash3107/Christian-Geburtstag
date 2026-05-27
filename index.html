@@ -240,11 +240,28 @@
   var params = JSON.parse(e.postData.contents);
   
   var timestamp = new Date();
-  var name = params.name;
+  var name = params.name.trim();
   var status = params.status;
   var message = params.message || "";
   
-  sheet.appendRow([timestamp, name, status, message]);
+  var data = sheet.getDataRange().getValues();
+  var foundRow = -1;
+  
+  for (var i = 1; i < data.length; i++) {
+    if (data[i][1].toString().toLowerCase().trim() === name.toLowerCase()) {
+      foundRow = i + 1;
+      break;
+    }
+  }
+  
+  if (foundRow > -1) {
+    sheet.getRange(foundRow, 1).setValue(timestamp);
+    sheet.getRange(foundRow, 2).setValue(name);
+    sheet.getRange(foundRow, 3).setValue(status);
+    sheet.getRange(foundRow, 4).setValue(message);
+  } else {
+    sheet.appendRow([timestamp, name, status, message]);
+  }
   
   return ContentService.createTextOutput(JSON.stringify({"result": "success"}))
     .setMimeType(ContentService.MimeType.JSON);
