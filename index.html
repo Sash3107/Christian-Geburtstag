@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christians 60. Geburtstag - Aprés Ski Party!</title>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Mountains+of+Christmas:wght@700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Canvas for particle snow physics -->
+    <canvas id="snow-canvas"></canvas>
+
+    <div class="app-container">
+        <!-- Elegant clean header -->
+        <header class="clean-header animate-fade-in">
+            <h1 class="main-title-clean">Christians 60. Geburtstag</h1>
+            <p class="subtitle-clean">Die ultimative Aprés-Ski Party • 12.12.2026</p>
+        </header>
+
+        <!-- COUNTDOWN Section -->
+        <section class="countdown-section animate-fade-in">
+            <h2 class="section-title"><i class="fa-solid fa-hourglass-half"></i> Countdown bis zum Pistenstart</h2>
+            <div class="countdown-container" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="days">00</span>
+                    <span class="countdown-label">Tage</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">00</span>
+                    <span class="countdown-label">Stunden</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">00</span>
+                    <span class="countdown-label">Minuten</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <span class="countdown-label">Sekunden</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTY DETAILS Cards -->
+        <main class="details-grid">
+            <!-- Card 1: Wann -->
+            <div class="card detail-card animate-fade-in delay-1">
+                <div class="card-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                <h3>Wann geht's los?</h3>
+                <p class="highlight-text">Samstag, 12. Dezember 2026</p>
+                <p>Einlass & Pistenöffnung ab <strong>18:00 Uhr</strong></p>
+            </div>
+
+            <!-- Card 2: Wo -->
+            <div class="card detail-card animate-fade-in delay-2">
+                <div class="card-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                <h3>Die Skihütte</h3>
+                <p class="highlight-text">Em Klarissenkloster</p>
+                <p>Klarissenstraße 10<br>41460 Neuss</p>
+                <a href="https://maps.google.com/?q=Em+Klarissenkloster+Klarissenstraße+10+41460+Neuss" target="_blank" rel="noopener noreferrer" class="maps-btn">
+                    <i class="fa-solid fa-route"></i> Route planen
+                </a>
+            </div>
+
+            <!-- Card 3: Dresscode -->
+            <div class="card detail-card animate-fade-in delay-3">
+                <div class="card-icon"><i class="fa-solid fa-person-skiing"></i></div>
+                <h3>Pisten-Dresscode</h3>
+                <p class="highlight-text">Hütten- & Skigaudi</p>
+                <p>Pisten-Outfit, Wintermütze oder kuscheliger Winter-Pulli!</p>
+                <p class="sub-text">Hauptsache warm & bereit zum Tanzen!</p>
+            </div>
+        </main>
+
+        <!-- RSVP Form Section -->
+        <section class="rsvp-section card animate-fade-in delay-4" id="rsvp-anchor">
+            <h2 class="section-title"><i class="fa-solid fa-pen-nib"></i> Gib mir Bescheid!</h2>
+            <p class="section-subtitle">Bist du bei der wildesten Hüttengaudi des Jahres dabei? Bitte gib mir bis zum <strong>01. November 2026</strong> Rückmeldung.</p>
+
+            <form id="rsvp-form" class="rsvp-form">
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="guest-name"><i class="fa-solid fa-user"></i> Dein Name (Vor- & Nachname)</label>
+                    <input type="text" id="guest-name" name="name" placeholder="z.B. Max Mustermann" required autocomplete="name">
+                </div>
+
+                <!-- Status Buttons -->
+                <div class="form-group">
+                    <label><i class="fa-solid fa-circle-question"></i> Bist du dabei?</label>
+                    <div class="status-toggle-container">
+                        <input type="radio" id="status-accept" name="status" value="Zusage" checked class="hidden-radio">
+                        <label for="status-accept" class="status-btn accept-btn">
+                            <i class="fa-solid fa-glass-cheers"></i> Bin am Start! 🎿
+                        </label>
+
+                        <input type="radio" id="status-decline" name="status" value="Absage" class="hidden-radio">
+                        <label for="status-decline" class="status-btn decline-btn">
+                            <i class="fa-solid fa-snowflake"></i> Kann leider nicht... ❄️
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <!-- Custom Message -->
+                <div class="form-group">
+                    <label for="guest-message"><i class="fa-solid fa-comment-dots"></i> Nachricht an Christian (optional)</label>
+                    <textarea id="guest-message" name="message" rows="3" placeholder="Hinterlasse einen lieben Gruß, Musikwünsche oder Sonstiges..."></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn" id="submit-rsvp">
+                    <span class="btn-text">Antwort absenden 🚀</span>
+                    <span class="btn-loader"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                </button>
+            </form>
+
+            <!-- Success Overlay -->
+            <div id="success-message" class="success-overlay">
+                <div class="success-content">
+                    <div class="success-icon"><i class="fa-solid fa-check-double animate-bounce"></i></div>
+                    <h3>Vielen Dank für deine Rückmeldung!</h3>
+                    <p id="success-text">Deine Antwort wurde erfolgreich gespeichert.</p>
+                    <button id="success-close-btn" class="secondary-btn">Eintrag bearbeiten / Zurück</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER with Admin access -->
+        <footer>
+            <button id="admin-trigger-btn" class="admin-trigger-btn" aria-label="Admin Login" style="margin-top: 0; opacity: 0.3;">
+                <i class="fa-solid fa-lock"></i> Admin
+            </button>
+        </footer>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="admin-login-modal" class="modal-overlay">
+        <div class="modal card animate-scale-in">
+            <button class="modal-close-btn" id="login-close-btn"><i class="fa-solid fa-xmark"></i></button>
+            <h3><i class="fa-solid fa-user-shield"></i> Admin-Bereich</h3>
+            <p>Bitte gib das Passwort ein, um Zugang zur Gästeliste zu erhalten.</p>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-password">Passwort</label>
+                    <div class="password-input-container">
+                        <input type="password" id="admin-password" placeholder="Passwort eingeben" required autocomplete="current-password">
+                        <button type="button" id="toggle-pw-btn" class="toggle-pw-btn"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                    <p id="login-error-msg" class="error-text"><i class="fa-solid fa-triangle-exclamation"></i> Falsches Passwort!</p>
+                </div>
+                <button type="submit" class="submit-btn">Anmelden</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD MODAL -->
+    <div id="admin-dashboard-modal" class="modal-overlay">
+        <div class="modal dashboard-modal card animate-scale-in">
+            <header class="dashboard-header">
+                <h3><i class="fa-solid fa-sliders"></i> Christian's Admin-Zentrale</h3>
+                <div class="dashboard-controls">
+                    <button id="admin-logout-btn" class="danger-btn"><i class="fa-solid fa-right-from-bracket"></i> Abmelden</button>
+                    <button class="modal-close-btn" id="dashboard-close-btn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </header>
+
+            <!-- STATS CARDS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon accept"><i class="fa-solid fa-user-check"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stats-yes-count">0</span>
+                        <span class="stat-label">Zusagen (Gäste)</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon decline"><i class="fa-solid fa-user-minus"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stats-no-count">0</span>
+                        <span class="stat-label">Absagen</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon responses"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stats-total-count">0</span>
+                        <span class="stat-label">Gesamte Antworten</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHART & INTEGRATION GRID -->
+                <!-- Column 1: Config Instructions Summary -->
+                <div class="sub-card" style="display: flex; flex-direction: column; justify-content: center;">
+                    <h4><i class="fa-solid fa-circle-info"></i> Admin-Information</h4>
+                    <p class="small-text" style="margin-bottom: 0.5rem; line-height: 1.5;">Hier verwaltest du alle eingehenden Rückmeldungen für Christians Geburtstagsfeier.</p>
+                    <p class="small-text" style="line-height: 1.5;">Das Passwort schützt den Zugriff vor neugierigen Gästen. Du kannst die Liste filtern, durchsuchen oder für deine eigene Planung als formatierte Excel-Datei exportieren.</p>
+                </div>
+
+                <!-- Column 2: Settings & Real Database Connection -->
+                <div class="sub-card">
+                    <h4><i class="fa-solid fa-database"></i> Live-Speicherung (Google Sheets)</h4>
+                    <p class="small-text">Standardmäßig werden Antworten lokal im Browser gespeichert. Klicke auf die Anleitung, um eine echte Datenbank über Google Sheets zu verknüpfen (kostenlos & in 2 Min eingerichtet).</p>
+                    <div class="db-actions">
+                        <button id="guide-toggle-btn" class="secondary-btn btn-sm"><i class="fa-solid fa-book"></i> Google Sheets Anleitung anzeigen</button>
+                        <button id="demo-data-btn" class="info-btn btn-sm"><i class="fa-solid fa-wand-magic-sparkles"></i> Testdaten laden</button>
+                    </div>
+
+                    <!-- Connection Config form -->
+                    <div class="connection-form-box">
+                        <label for="google-sheet-url">Google Apps Script Web-App URL (optional):</label>
+                        <div class="url-input-row">
+                            <input type="url" id="google-sheet-url" placeholder="https://script.google.com/macros/s/.../exec">
+                            <button id="save-url-btn" class="primary-btn btn-sm">Speichern</button>
+                        </div>
+                        <span id="connection-status-badge" class="badge badge-local">Lokaler Speicher aktiv</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLLAPSIBLE GUIDE PANEL -->
+            <div id="sheets-guide-panel" class="guide-panel">
+                <h5><i class="fa-solid fa-graduation-cap"></i> Schritt-für-Schritt Anleitung: Google Sheets Backend</h5>
+                <ol class="guide-steps">
+                    <li>Erstelle eine neue <strong>Google Tabelle</strong> (Google Sheets) in deinem Google Drive.</li>
+                    <li>Benenne das erste Tabellenblatt in <code>Gästeliste</code> um.</li>
+                    <li>Schreibe in die erste Zeile (A1 bis D1) folgende Spaltenköpfe:<br>
+                        <code>Zeitstempel</code> | <code>Name</code> | <code>Status</code> | <code>Nachricht</code>
+                    </li>
+                    <li>Gehe im Menü auf <strong>Erweiterungen &gt; Apps Script</strong>.</li>
+                    <li>Lösche den vorhandenen Code und füge das folgende Skript ein:
+                        <pre class="code-box"><code>function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Gästeliste");
+  var params = JSON.parse(e.postData.contents);
+  
+  var timestamp = new Date();
+  var name = params.name;
+  var status = params.status;
+  var message = params.message || "";
+  
+  sheet.appendRow([timestamp, name, status, message]);
+  
+  return ContentService.createTextOutput(JSON.stringify({"result": "success"}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Gästeliste");
+  var data = sheet.getDataRange().getValues();
+  var result = [];
+  
+  for (var i = 1; i < data.length; i++) {
+    result.push({
+      timestamp: data[i][0],
+      name: data[i][1],
+      status: data[i][2],
+      message: data[i][3]
+    });
+  }
+  
+  return ContentService.createTextOutput(JSON.stringify(result))
+    .setMimeType(ContentService.MimeType.JSON);
+}</code></pre>
+                    </li>
+                    <li>Klicke auf <strong>Bereitstellen &gt; Neue Bereitstellung</strong>.</li>
+                    <li>Wähle Typ: <strong>Web-App</strong>.</li>
+                    <li>Konfiguriere:
+                        <ul>
+                            <li>Beschreibung: <code>Christian Party RSVP</code></li>
+                            <li>Ausführen als: <code>Ich (deine-email@gmail.com)</code></li>
+                            <li>Wer hat Zugriff: <code>Jeder</code> (sehr wichtig!)</li>
+                        </ul>
+                    </li>
+                    <li>Klicke auf <strong>Bereitstellen</strong>, erteile die Zugriffsrechte und kopiere die generierte <strong>Web-App-URL</strong>.</li>
+                    <li>Füge diese URL oben ein und speichere. Fertig! Jetzt landen alle Einträge live in deiner Google Tabelle!</li>
+                </ol>
+            </div>
+
+            <!-- GUEST LIST TABLE -->
+            <div class="guest-list-section">
+                <header class="table-header">
+                    <h4><i class="fa-solid fa-list-check"></i> Gästeliste</h4>
+                    <div class="table-controls">
+                        <input type="text" id="guest-search" placeholder="Name suchen...">
+                        <select id="status-filter">
+                            <option value="all">Alle Rückmeldungen</option>
+                            <option value="Zusage">Nur Zusagen</option>
+                            <option value="Absage">Nur Absagen</option>
+                        </select>
+                        <button id="export-excel-btn" class="success-btn"><i class="fa-solid fa-file-excel"></i> In Excel exportieren</button>
+                        <button id="clear-all-btn" class="danger-btn"><i class="fa-solid fa-trash-can"></i> Alle löschen</button>
+                    </div>
+                </header>
+
+                <div class="table-container">
+                    <table id="guest-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Nachricht</th>
+                                <th>Datum</th>
+                                <th>Aktion</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guest-table-body">
+                            <!-- Populated dynamically -->
+                            <tr>
+                                <td colspan="6" class="no-data-text">Keine Gäste registriert.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript Code laden -->
+    <script src="app.js"></script>
+</body>
+</html>
