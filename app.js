@@ -6,10 +6,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const STORAGE_KEY = 'christian_party_rsvps';
     const CONFIG_KEY = 'christian_party_config';
 
+    // ==========================================================================
+    // WICHTIG: TRAGE HIER DEINE GOOGLE APPS SCRIPT WEB-APP URL EIN:
+    // ==========================================================================
+    const GOOGLE_SHEET_URL = ''; 
+
     let rsvps = [];
     let config = {
         googleSheetUrl: ''
     };
+
+    function getGoogleSheetUrl() {
+        return GOOGLE_SHEET_URL || config.googleSheetUrl || '';
+    }
 
     // Load initial data
     loadLocalRSVPs();
@@ -219,10 +228,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let remoteSuccess = false;
 
         // 2. Try sending to Google Sheets (if URL configured)
-        if (config.googleSheetUrl) {
+        const sheetUrl = getGoogleSheetUrl();
+        if (sheetUrl) {
             try {
                 // Using standard fetch with mode no-cors for simple Google Web Apps
-                await fetch(config.googleSheetUrl, {
+                await fetch(sheetUrl, {
                     method: 'POST',
                     mode: 'no-cors',
                     cache: 'no-cache',
@@ -369,11 +379,21 @@ document.addEventListener('DOMContentLoaded', () => {
         adminDashboardModal.classList.add('active');
         
         // Pre-fill configured values
-        googleSheetUrlInput.value = config.googleSheetUrl || '';
+        if (GOOGLE_SHEET_URL) {
+            googleSheetUrlInput.value = GOOGLE_SHEET_URL;
+            googleSheetUrlInput.disabled = true;
+            saveUrlBtn.disabled = true;
+            saveUrlBtn.innerHTML = '<i class="fa-solid fa-code"></i> Im Quellcode aktiv';
+        } else {
+            googleSheetUrlInput.value = config.googleSheetUrl || '';
+            googleSheetUrlInput.disabled = false;
+            saveUrlBtn.disabled = false;
+            saveUrlBtn.innerHTML = 'Speichern';
+        }
         updateConnectionStatus();
 
         // Load lists
-        if (config.googleSheetUrl) {
+        if (getGoogleSheetUrl()) {
             await fetchRemoteRSVPs();
         } else {
             loadLocalRSVPs();
@@ -382,12 +402,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateConnectionStatus() {
-        if (config.googleSheetUrl) {
+        if (GOOGLE_SHEET_URL) {
             connectionStatusBadge.className = 'badge badge-live';
-            connectionStatusBadge.innerHTML = '<i class="fa-solid fa-wifi"></i> Google Sheets Live';
+            connectionStatusBadge.innerHTML = '<i class="fa-solid fa-code"></i> Google Sheets (Quellcode)';
+        } else if (config.googleSheetUrl) {
+            connectionStatusBadge.className = 'badge badge-live';
+            connectionStatusBadge.innerHTML = '<i class="fa-solid fa-wifi"></i> Google Sheets (Browser-Test)';
         } else {
             connectionStatusBadge.className = 'badge badge-local';
-            connectionStatusBadge.innerHTML = '<i class="fa-solid fa-database"></i> Lokaler Speicher (Browser)';
+            connectionStatusBadge.innerHTML = '<i class="fa-solid fa-database"></i> Lokaler Speicher';
         }
     }
 
@@ -529,10 +552,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fetch from Google sheets if connected
     async function fetchRemoteRSVPs() {
-        if (!config.googleSheetUrl) return;
+        const sheetUrl = getGoogleSheetUrl();
+        if (!sheetUrl) return;
 
         try {
-            const response = await fetch(config.googleSheetUrl);
+            const response = await fetch(sheetUrl);
             if (response.ok) {
                 const data = await response.json();
                 if (Array.isArray(data)) {
