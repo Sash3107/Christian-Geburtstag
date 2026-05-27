@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     // WICHTIG: TRAGE HIER DEINE GOOGLE APPS SCRIPT WEB-APP URL EIN:
     // ==========================================================================
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxTbqpPSh-u_nnlwqV_cd83HyWIc8UxxHzRGetntWrdzVTeDbVPIrC_gdaAYBFsuY6wYA/exec'; 
+    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbx5GdcF6v2FYFs-tPwvrG-vfxjoHO_-jJz9Q-6H5eS9x3g1tj95D9TI9l-BpIcxolVIfg/exec'; 
 
     let rsvps = [];
     let config = {
