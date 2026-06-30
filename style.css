@@ -1234,3 +1234,167 @@ tbody tr:hover {
 .parking-btn:hover {
     box-shadow: 0 6px 15px rgba(37, 99, 235, 0.5), 0 0 10px rgba(255,255,255,0.2) !important;
 }
+
+/* ==========================================================================
+   ADMIN DASHBOARD – MOBILE OPTIMIZATION
+   Vollflächiges Modal, fixierter Header, Karten statt breiter Tabelle.
+   ========================================================================== */
+@media (max-width: 680px) {
+    /* Modal nimmt den ganzen Bildschirm ein – mehr Platz, kein Rand-Padding */
+    #admin-dashboard-modal {
+        padding: 0;
+    }
+
+    .dashboard-modal {
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        max-height: 100%;
+        border: none;
+        border-radius: 0;
+        padding: 1.1rem 0.9rem calc(1.1rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Header bleibt beim Scrollen oben kleben → Abmelden/Schließen stets erreichbar */
+    .dashboard-header {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        margin: -1.1rem -0.9rem 1.25rem;
+        padding: 0.9rem;
+        background: rgba(15, 23, 42, 0.97);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+
+    .dashboard-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .dashboard-controls {
+        gap: 0.6rem;
+    }
+
+    /* Schließen-X aus der absoluten Position lösen → kein Überlappen mit "Abmelden" */
+    .dashboard-header .modal-close-btn {
+        position: static;
+        font-size: 1.5rem;
+    }
+
+    .dashboard-controls .danger-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    /* Statistik-Kacheln 2-spaltig & kompakt gestapelt */
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+    }
+
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.4rem;
+        padding: 0.9rem 0.5rem;
+    }
+
+    .stat-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1.4rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    /* Google-Sheets URL-Eingabe untereinander statt gequetscht nebeneinander */
+    .url-input-row {
+        flex-direction: column;
+    }
+
+    .url-input-row .btn-sm {
+        width: 100%;
+    }
+
+    /* --- Gästetabelle als Karten statt horizontalem Scrollen --- */
+    .table-container {
+        overflow-x: visible;
+        background: transparent;
+        border: none;
+    }
+
+    #guest-table thead {
+        /* Spaltenköpfe ausblenden – Labels kommen pro Zeile via data-label */
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+
+    #guest-table,
+    #guest-table tbody,
+    #guest-table tr,
+    #guest-table td {
+        display: block;
+        width: 100%;
+    }
+
+    #guest-table tr {
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 12px;
+        padding: 0.4rem 0.9rem;
+        margin-bottom: 0.85rem;
+    }
+
+    #guest-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        text-align: right;
+        max-width: none !important;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        word-break: break-word;
+    }
+
+    #guest-table td:last-child {
+        border-bottom: none;
+    }
+
+    /* Feldname (Name/Status/Nachricht/Datum) links vor dem Wert */
+    #guest-table td::before {
+        content: attr(data-label);
+        flex-shrink: 0;
+        text-align: left;
+        font-weight: 700;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--color-glow-amber);
+    }
+
+    /* Aktion-Zeile: Löschen-Button gut erreichbar rechts */
+    #guest-table td[data-label="Aktion"] {
+        justify-content: flex-end;
+    }
+
+    .table-action-btn {
+        font-size: 1.25rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    /* Leerzustand: kein Label, zentriert */
+    #guest-table td.no-data-text {
+        display: block;
+        text-align: center;
+    }
+
+    #guest-table td.no-data-text::before {
+        content: none;
+    }
+}

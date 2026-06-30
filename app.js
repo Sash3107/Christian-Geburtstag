@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (filteredRSVPs.length === 0) {
             guestTableBody.innerHTML = `
                 <tr>
-                    <td colspan="6" class="no-data-text">Keine passenden Einträge gefunden.</td>
+                    <td colspan="5" class="no-data-text">Keine passenden Einträge gefunden.</td>
                 </tr>
             `;
             return;
@@ -467,17 +467,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const trHtml = `
                 <tr>
-                    <td><strong>${escapeHTML(rsvp.name)}</strong></td>
-                    <td>
+                    <td data-label="Name"><strong>${escapeHTML(rsvp.name)}</strong></td>
+                    <td data-label="Status">
                         <span class="badge-status ${rsvp.status === 'Zusage' ? 'badge-accept' : 'badge-decline'}">
                             ${rsvp.status === 'Zusage' ? '🎿 Zusage' : '❄️ Absage'}
                         </span>
                     </td>
-                    <td class="small-text" style="max-width: 250px; white-space: normal; word-break: break-word;">
+                    <td data-label="Nachricht" class="small-text" style="max-width: 250px; white-space: normal; word-break: break-word;">
                         ${rsvp.message ? escapeHTML(rsvp.message) : '<span style="opacity:0.4;">Keine</span>'}
                     </td>
-                    <td class="small-text">${formattedDate}</td>
-                    <td>
+                    <td data-label="Datum" class="small-text">${formattedDate}</td>
+                    <td data-label="Aktion">
                         <button class="table-action-btn delete-rsvp-btn" data-id="${rsvp.id}" title="Eintrag löschen">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
