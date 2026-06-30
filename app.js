@@ -576,6 +576,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
             }
+            // Antwort nicht ok oder unerwartetes Format → lokale Daten anzeigen
+            loadLocalRSVPs();
+            renderDashboard();
         } catch (error) {
             console.error('Fehler beim Abrufen der Live-Daten:', error);
             // Fall back to local data
